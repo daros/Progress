@@ -2,6 +2,7 @@ package se.megalit.progress.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import se.megalit.progress.worker.IWorker;
 import se.megalit.progress.worker.Worker;
 
 /**
@@ -14,7 +15,7 @@ import se.megalit.progress.worker.Worker;
 public class ApplicationConfiguration {
 
     @Bean
-    public Worker worker() {
+    public IWorker worker() {
         return new Worker();
     }
 }

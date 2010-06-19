@@ -6,7 +6,7 @@ package se.megalit.progress.worker;
  * Date: Jun 16, 2010
  * Time: 11:27:13 PM
  */
-public class Worker {
+public class Worker implements IWorker {
     
     public void work() {
         for (int i=0; i<100; i++) {
