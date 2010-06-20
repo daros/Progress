@@ -1,0 +1,54 @@
+apply plugin: 'scala'
+
+defaultTasks 'build', 'copyToLib'
+
+repositories {
+  mavenCentral()
+  mavenRepo urls: 'http://scala-tools.org/repo-releases/'
+  mavenRepo urls: 'http://scala-tools.org/repo-snapshots/'
+}
+
+dependencies {
+  // Libraries needed to run the scala tools
+  scalaTools 'org.scala-lang:scala-compiler:2.8.0.RC5'
+  scalaTools 'org.scala-lang:scala-library:2.8.0.RC5'
+
+  // Libraries needed for scala api
+  compile 'org.scala-lang:scala-library:2.8.0.RC3'
+  compile 'org.scalatest:scalatest:1.2-for-scala-2.8.0.RC3-SNAPSHOT'
+
+  compile group: 'org.springframework', name: 'spring-context', version: '3.0.3.RELEASE'
+  compile group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
+}
+
+task copyToLib(type: Copy) {
+  into "$buildDir/libs/lib"
+  from configurations.runtime
+}
+
+task Runner {
+  doLast {
+    println "${sourceSets.main.runtimeClasspath.asPath}"
+
+    ant.java(classname: 'se.megalit.progress.Runner', fork: false,
+            classpath: "${sourceSets.main.runtimeClasspath.asPath}")
+  }
+}
+
+task GuiRunner {
+  doLast {
+    println "${sourceSets.main.runtimeClasspath.asPath}"
+
+    ant.java(classname: 'se.megalit.progress.GuiRunner', fork: true,
+            classpath: "${sourceSets.main.runtimeClasspath.asPath}")
+  }
+}
+
+task SpringGuiRunner {
+  doLast {
+    println "${sourceSets.main.runtimeClasspath.asPath}"
+
+    ant.java(classname: 'se.megalit.progress.SpringGuiRunner', fork: false,
+            classpath: "${sourceSets.main.runtimeClasspath.asPath}")
+  }
+}
