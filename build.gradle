@@ -19,6 +19,7 @@ dependencies {
 
   compile group: 'org.springframework', name: 'spring-context', version: '3.0.3.RELEASE'
   compile group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
+  runtime group: 'cglib', name: 'cglib-nodep', version: '2.2'
 }
 
 task copyToLib(type: Copy) {

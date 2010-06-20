@@ -76,6 +76,48 @@ public class SpringGuiRunner {
         frame.setVisible(true);
     }
 
+    {
+        laf(true);
+    }
+
+    private static void laf(boolean useSystemLaf) {
+        if (useSystemLaf) {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (InstantiationException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (UnsupportedLookAndFeelException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        } else {
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                // If Nimbus is not available, you can set the GUI to another look and feel.
+                try {
+                    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (InstantiationException e1) {
+                    e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (IllegalAccessException e1) {
+                    e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (UnsupportedLookAndFeelException e1) {
+                    e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+        }
+    }
+
     private static void centerOnScreen(JFrame window) {
         int width = window.getWidth();
         int height = window.getHeight();
