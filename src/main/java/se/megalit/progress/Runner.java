@@ -11,7 +11,7 @@ import se.megalit.progress.worker.Worker;
 public class Runner {
 
     public static void main(String[] args) {
-        System.out.println("Start working...");
+        System.out.println("Start working....");
 
         long start = System.currentTimeMillis();
         new Worker().work();

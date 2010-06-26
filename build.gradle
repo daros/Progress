@@ -20,36 +20,39 @@ dependencies {
   compile group: 'org.springframework', name: 'spring-context', version: '3.0.3.RELEASE'
   compile group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
   runtime group: 'cglib', name: 'cglib-nodep', version: '2.2'
+
+  compile group: 'org.springframework', name: 'spring-aop', version: '3.0.3.RELEASE'
+  runtime group: 'org.springframework', name: 'spring-aspects', version: '3.0.3.RELEASE'
+  compile group: 'org.aspectj', name: 'aspectjrt', version: '1.6.8'
+  runtime group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.8'
 }
 
 task copyToLib(type: Copy) {
-  into "$buildDir/libs/lib"
+  into "$buildDir/../lib"
   from configurations.runtime
 }
 
-task Runner {
-  doLast {
-    println "${sourceSets.main.runtimeClasspath.asPath}"
-
-    ant.java(classname: 'se.megalit.progress.Runner', fork: false,
-            classpath: "${sourceSets.main.runtimeClasspath.asPath}")
-  }
+task Runner(type: JavaExec) {
+  main = 'se.megalit.progress.Runner'
+  classpath = sourceSets.main.runtimeClasspath
 }
 
-task GuiRunner {
-  doLast {
-    println "${sourceSets.main.runtimeClasspath.asPath}"
-
-    ant.java(classname: 'se.megalit.progress.GuiRunner', fork: true,
-            classpath: "${sourceSets.main.runtimeClasspath.asPath}")
-  }
+task GuiRunner(type: JavaExec) {
+  main = 'se.megalit.progress.GuiRunner'
+  classpath = sourceSets.main.runtimeClasspath
 }
 
 task SpringGuiRunner {
   doLast {
     println "${sourceSets.main.runtimeClasspath.asPath}"
 
-    ant.java(classname: 'se.megalit.progress.SpringGuiRunner', fork: false,
+    ant.java(classname: 'se.megalit.progress.SpringGuiRunner', fork: true,
             classpath: "${sourceSets.main.runtimeClasspath.asPath}")
   }
 }
+
+task springGuiRunner2(type: JavaExec) {
+   main = 'se.megalit.progress.SpringGuiRunner'
+   classpath = sourceSets.main.runtimeClasspath
+}
+
